@@ -1,7 +1,10 @@
 from conf import PathConfig
 from pywinauto.application import Application
+import autoit
 import time
 import os
+import datetime
+import time
 
 class business_logic:
 
@@ -14,19 +17,41 @@ class business_logic:
         print(file)
         app_path = FolderPaths[1]+backslash+file
         print(app_path)
-        #os.startfile(app_path)
-        #time.sleep(100)
+        os.startfile(app_path)
+        time.sleep(100)
         print("Sleep End!!!")
         app = Application().connect(path=r"C:\Program Files\TechSmith\Camtasia 9\CamtasiaStudio.exe")
-        #app = Application().Connect(title=u'Camtasia 9', class_name='HwndWrapper[CamtasiaStudio.exe;;29b38be4-d942-44c3-a8ec-2ba5eff5a55f]')
+        #for TRIAL
+        app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').Click()
+        #end for TRIAL
         hwndwrappercamtasiastudioexebbedcaecbaeffaf = app[u'Camtasia 9']
 
-        #hwndwrappercamtasiastudioexebbedcaecbaeffaf.ClickInput(coords=(200, 15))
-        #hwndwrappercamtasiastudioexebbedcaecbaeffaf.TypeKeys("{DOWN}")
-        #hwndwrappercamtasiastudioexebbedcaecbaeffaf.TypeKeys("{ENTER}")
-        #time.sleep(5)
+        hwndwrappercamtasiastudioexebbedcaecbaeffaf.ClickInput(coords=(200, 20))
+        hwndwrappercamtasiastudioexebbedcaecbaeffaf.TypeKeys("{DOWN}")
+        hwndwrappercamtasiastudioexebbedcaecbaeffaf.TypeKeys("{ENTER}")
+        time.sleep(10)
         print("Sleep End!!!")
+        #for TRIAL
+        hwndwrappercamtasiastudioexebbedcaecbaeffaf.ClickInput(coords=(400, 600))
+        #end for TRIAL
+        time.sleep(2)
+        app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
+        time.sleep(2)
+        app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
+        time.sleep(2)
+        app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
+        time.sleep(2)
+        app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
+        time.sleep(2)
+        app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
+        #app.Window_(best_match='Dialog', top_level_only=True).PrintControlIdentifiers()
+        app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="Untitled Project",class_name="Edit").SetText(time.time())
         app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').Click()
+        app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').Click()
+        app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').Click()
+       # static.SetWindowText("sachin")
+        #print(datetime.datetime.now())
+        #print('Timestamp: {:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now()))
         #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
         #app = Application().connect(path=r"C:\Program Files\TechSmith\Camtasia 9\CamtasiaStudio.exe")
         #hwndwrappercamtasiastudioexebcfebfcbbefbad  = app[u'Camtasia 9']
@@ -41,6 +66,5 @@ class business_logic:
         #os.startfile(app_path)
         #autoit.run("E:\sample\TK Praktikum1.trec")
         #autoit.win_wait_active("[CLASS:Notepad]", 3)
-        #autoit.control_send("[CLASS:Notepad]", "Edit1", "hello world{!}")
         #autoit.win_close("[CLASS:Notepad]")
         #autoit.control_click("[Class:#32770]", "Button2")
