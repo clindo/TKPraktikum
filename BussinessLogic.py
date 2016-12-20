@@ -44,11 +44,19 @@ class business_logic:
         app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
         time.sleep(2)
         app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
+
         #app.Window_(best_match='Dialog', top_level_only=True).PrintControlIdentifiers()
         app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="Untitled Project",class_name="Edit").SetText(time.time())
         app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').Click()
-        app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').Click()
-        app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').Click()
+        time.sleep(2)
+        app.kill_()
+        time.sleep(2)
+        print("Rendering Succcessful")
+        #Finish rendering
+
+
+
+
        # static.SetWindowText("sachin")
         #print(datetime.datetime.now())
         #print('Timestamp: {:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now()))
