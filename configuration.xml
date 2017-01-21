@@ -2,4 +2,8 @@
 <RootPath>
     <Path path1="E:\testserver"> </Path>
     <MovePath path2="E:\testservercopy"> </MovePath>
+    <No_Screens dialog="5"> </No_Screens>
+    <TRIAL trial="YES"> </TRIAL>
+    <Share_BTN_COOR x="200" y="20"> </Share_BTN_COOR>
+    <WATER_MARK_COOR x="400" y="600"></WATER_MARK_COOR>
 </RootPath>

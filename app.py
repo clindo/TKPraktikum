@@ -1,14 +1,13 @@
 from automate import Automate
 from BussinessLogic import business_logic
-from conf import PathConfig
-from MACROS import MACROS
+from conf import Config
 Files=[]
 
 Auto = Automate()
 #Initializes from the configuration file
 Auto.Init()
 
-Path = PathConfig( )
+Path = Config( )
 #Get the folder paths to copy from src to dest
 #src_folder = Path.get_Original_Path()
 #dest_folder = Path.get_Moved_Path()

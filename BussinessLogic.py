@@ -1,6 +1,5 @@
-from conf import PathConfig
+from conf import Config
 from pywinauto.application import Application
-import autoit
 import time
 import os
 import datetime
@@ -9,39 +8,42 @@ import time
 class business_logic:
 
     def convert_files(self,file):
-        Path = PathConfig( )
-        #app = application.Application()
+        _config = Config()
         backslash = "\\"
-        #FolderPaths = Path.getPath()
-        app_path = Path.Moved_Path+backslash+file
+        app_path = _config.Moved_Path+backslash+file
         print(app_path)
         os.startfile(app_path)
         time.sleep(50)
         print("Sleep End!!!")
         app = Application().connect(path=r"C:\Program Files\TechSmith\Camtasia 9\CamtasiaStudio.exe")
         #for TRIAL
-        app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').Click()
+        if _config.Trial == 'YES':
+            app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').Click()
         #end for TRIAL
         hwndwrappercamtasiastudioexebbedcaecbaeffaf = app[u'Camtasia 9']
         #remark
-        hwndwrappercamtasiastudioexebbedcaecbaeffaf.ClickInput(coords=(200, 20))
+        hwndwrappercamtasiastudioexebbedcaecbaeffaf.ClickInput(coords=(_config.Share_Btn_X, _config.Share_Btn_Y))
         hwndwrappercamtasiastudioexebbedcaecbaeffaf.TypeKeys("{DOWN}")
         hwndwrappercamtasiastudioexebbedcaecbaeffaf.TypeKeys("{ENTER}")
         time.sleep(10)
         print("Sleep End!!!")
         #for TRIAL
-        hwndwrappercamtasiastudioexebbedcaecbaeffaf.ClickInput(coords=(400, 600))
+        if _config.Trial == 'YES':
+            hwndwrappercamtasiastudioexebbedcaecbaeffaf.ClickInput(coords=(_config.Water_Mark_Btn_X, _config.Water_Mark_Btn_Y))
         #end for TRIAL
-        time.sleep(2)
-        app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
-        time.sleep(2)
-        app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
-        time.sleep(2)
-        app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
-        time.sleep(2)
-        app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
-        time.sleep(2)
-        app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
+        for i in range(_config.Dialogs):
+        #for no_dialogs in _config.Dialogs:
+            time.sleep(2)
+            app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
+
+        #time.sleep(2)
+        #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
+        #time.sleep(2)
+        #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
+        #time.sleep(2)
+        #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
+        #time.sleep(2)
+        #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
 
         #app.Window_(best_match='Dialog', top_level_only=True).PrintControlIdentifiers()
         app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="Untitled Project",class_name="Edit").SetText(time.time())

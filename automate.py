@@ -1,24 +1,22 @@
-from conf import PathConfig
+from conf import Config
 import os
 import shutil
 
 
 class Automate:
-    'Initialization Class for Automation'
-
-
+    #Initialization Class for Automation
     def Init(self):
-        Path = PathConfig( )
-        Path.SetPath()
+        __configuration__ = Config()
+        __configuration__.read_config()
 
     def GetFiles(self, paths):
         files = []
-        for file in os.listdir( paths ):
-            files.append( file )
+        for file in os.listdir(paths):
+            files.append(file)
         return files
 
     def copyFiles(self, src_folder,dest_folder):
-        for file in os.listdir( src_folder ):
+        for file in os.listdir(src_folder):
             print ("File being moved -----> " + file)
             full_file_name = os.path.join( src_folder, file )
             if os.path.isfile(full_file_name):
