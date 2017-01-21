@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
 <RootPath>
-    <Path value="D:\Master Studies\WS16-17\TKPraktikum\Python Tutorial\test"> </Path>
-    <ConvertedPath value="D:\Master Studies\WS16-17\TKPraktikum\Python Tutorial\ConvertedFiles"> </ConvertedPath>
+    <Path path1="E:\testserver"> </Path>
+    <MovePath path2="E:\testservercopy"> </MovePath>
 </RootPath>
