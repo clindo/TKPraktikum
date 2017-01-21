@@ -12,20 +12,18 @@ class business_logic:
         Path = PathConfig( )
         #app = application.Application()
         backslash = "\\"
-        FolderPaths = Path.getPath()
-        print(FolderPaths[1])
-        print(file)
-        app_path = FolderPaths[1]+backslash+file
+        #FolderPaths = Path.getPath()
+        app_path = Path.Moved_Path+backslash+file
         print(app_path)
         os.startfile(app_path)
-        time.sleep(100)
+        time.sleep(50)
         print("Sleep End!!!")
         app = Application().connect(path=r"C:\Program Files\TechSmith\Camtasia 9\CamtasiaStudio.exe")
         #for TRIAL
         app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').Click()
         #end for TRIAL
         hwndwrappercamtasiastudioexebbedcaecbaeffaf = app[u'Camtasia 9']
-
+        #remark
         hwndwrappercamtasiastudioexebbedcaecbaeffaf.ClickInput(coords=(200, 20))
         hwndwrappercamtasiastudioexebbedcaecbaeffaf.TypeKeys("{DOWN}")
         hwndwrappercamtasiastudioexebbedcaecbaeffaf.TypeKeys("{ENTER}")

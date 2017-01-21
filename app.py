@@ -1,19 +1,22 @@
 from automate import Automate
 from BussinessLogic import business_logic
-Files1=[]
-Files2=[]
+from conf import PathConfig
+from MACROS import MACROS
+Files=[]
+
 Auto = Automate()
-Paths=Auto.Init()
+#Initializes from the configuration file
+Auto.Init()
 
-Files1=Auto.GetFiles(Paths[0])
-print (Paths[0])
-print (Files1)
+Path = PathConfig( )
+#Get the folder paths to copy from src to dest
+#src_folder = Path.get_Original_Path()
+#dest_folder = Path.get_Moved_Path()
+Auto.copyFiles(Path.Original_Path,Path.Moved_Path)
 
-Auto.copyFiles(Paths)
+#Get the files from the dest folder to start the conversion process
+Files=Auto.GetFiles(Path.Moved_Path)
 
-for file in Files1:
-    #Files2=Auto.GetFiles(Paths[1])
-    print (file)
-    #print (Files2)
+for file in Files:
     bi = business_logic()
     bi.convert_files(file)

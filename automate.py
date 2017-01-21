@@ -9,11 +9,7 @@ class Automate:
 
     def Init(self):
         Path = PathConfig( )
-        FolderPaths = []
-        Path.SetPath( )
-        FolderPaths = Path.getPath()
-        return FolderPaths
-        # print (FolderPaths)
+        Path.SetPath()
 
     def GetFiles(self, paths):
         files = []
@@ -21,11 +17,9 @@ class Automate:
             files.append( file )
         return files
 
-    def copyFiles(self, paths):
-        for file in os.listdir( paths[0] ):
+    def copyFiles(self, src_folder,dest_folder):
+        for file in os.listdir( src_folder ):
             print ("File being moved -----> " + file)
-            full_file_name = os.path.join( paths[0], file )
+            full_file_name = os.path.join( src_folder, file )
             if os.path.isfile(full_file_name):
-                shutil.move( full_file_name, paths[1] )
-
-                #shutil.copy( full_file_name, paths[1] )
+                shutil.move( full_file_name, dest_folder )
