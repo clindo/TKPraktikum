@@ -1,5 +1,6 @@
 from conf import Config
 from pywinauto.application import Application
+from logger import log
 import time
 import os
 import datetime
@@ -11,68 +12,41 @@ class business_logic:
         _config = Config()
         backslash = "\\"
         app_path = _config.Moved_Path+backslash+file
-        print(app_path)
+        #print(app_path)
         os.startfile(app_path)
         time.sleep(50)
         print("Sleep End!!!")
         app = Application().connect(path=r"C:\Program Files\TechSmith\Camtasia 9\CamtasiaStudio.exe")
+
         #for TRIAL
         if _config.Trial == 'YES':
+            #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').SetFocus()
             app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').Click()
         #end for TRIAL
-        hwndwrappercamtasiastudioexebbedcaecbaeffaf = app[u'Camtasia 9']
+        child_elements = app[u'Camtasia 9']
         #remark
-        hwndwrappercamtasiastudioexebbedcaecbaeffaf.ClickInput(coords=(_config.Share_Btn_X, _config.Share_Btn_Y))
-        hwndwrappercamtasiastudioexebbedcaecbaeffaf.TypeKeys("{DOWN}")
-        hwndwrappercamtasiastudioexebbedcaecbaeffaf.TypeKeys("{ENTER}")
-        time.sleep(10)
-        print("Sleep End!!!")
+        child_elements.ClickInput(coords=(_config.Share_Btn_X, _config.Share_Btn_Y))
+        child_elements.TypeKeys("{DOWN}")
+        child_elements.TypeKeys("{ENTER}")
+        #time.sleep(10)
+
         #for TRIAL
         if _config.Trial == 'YES':
-            hwndwrappercamtasiastudioexebbedcaecbaeffaf.ClickInput(coords=(_config.Water_Mark_Btn_X, _config.Water_Mark_Btn_Y))
+            child_elements.Wait('visible',timeout=20)
+            child_elements.ClickInput(coords=(_config.Water_Mark_Btn_X, _config.Water_Mark_Btn_Y))
         #end for TRIAL
         for i in range(_config.Dialogs):
         #for no_dialogs in _config.Dialogs:
-            time.sleep(2)
+            #time.sleep(2)
+            child_elements.Wait('visible',timeout=20)
             app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
-
-        #time.sleep(2)
-        #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
-        #time.sleep(2)
-        #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
-        #time.sleep(2)
-        #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
-        #time.sleep(2)
-        #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
 
         #app.Window_(best_match='Dialog', top_level_only=True).PrintControlIdentifiers()
         app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="Untitled Project",class_name="Edit").SetText(time.time())
         app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').Click()
         time.sleep(2)
+        #child_elements.Wait('visible',timeout=20)
         app.kill_()
-        time.sleep(2)
+        time.sleep(10)
         print("Rendering Succcessful")
         #Finish rendering
-
-
-
-
-       # static.SetWindowText("sachin")
-        #print(datetime.datetime.now())
-        #print('Timestamp: {:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now()))
-        #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
-        #app = Application().connect(path=r"C:\Program Files\TechSmith\Camtasia 9\CamtasiaStudio.exe")
-        #hwndwrappercamtasiastudioexebcfebfcbbefbad  = app[u'Camtasia 9']
-        #hwndwrappercamtasiastudioexebcfebfcbbefbad.Minimize()
-        #app.Window_(title='Camtasia 9').MenuSelect('File')
-        #app.CamtasiaStudio.draw_outline()
-        #app['Camtasia 9'].menu_select("Share")
-        #xyz = app.CamtasiaStudio.Menu_select("Help->About Camtasia")
-        #app.Share.print_control_identifiers()
-        #app.PopupMenu.Menu().get_menu_path("Cancel")[0].click()
-        #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Cancel').Click()
-        #os.startfile(app_path)
-        #autoit.run("E:\sample\TK Praktikum1.trec")
-        #autoit.win_wait_active("[CLASS:Notepad]", 3)
-        #autoit.win_close("[CLASS:Notepad]")
-        #autoit.control_click("[Class:#32770]", "Button2")
