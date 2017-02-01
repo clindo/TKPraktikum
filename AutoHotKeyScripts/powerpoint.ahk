@@ -27,9 +27,19 @@ Right::
 	objppt.SlideShowWindow.View.Next
 	monitorDisplay(objppt, MonitorCount)
 	return
+	
+Left::
+	objppt.SlideShowWindow.View.Previous
+	monitorDisplay(objppt, MonitorCount)
+	return
 
 monitorDisplay(objppt, MonitorCount){
-	CurrentSlideNumber :=% objppt.SlideShowWindow.View.Slide.SlideIndex
+	try{
+		CurrentSlideNumber :=% objppt.SlideShowWindow.View.Slide.SlideIndex
+		}
+	catch{
+		ExitApp
+		}
 	;MsgBox %CurrentSlideNumber% is the current slide
 	monitor := MonitorCount-1
 	Loop %monitor%{
@@ -53,7 +63,7 @@ getCoordinates(MonitorNumber){
 setDisplay(MonitorNumber, PreviousSlideNumber){
 global
 	coord := getCoordinates(MonitorNumber)
-	SetEnv file, C:\Users\SK\Documents\AutoHotKey\temp\%PreviousSlideNumber%.png
+	SetEnv file, E:\AHK\AutoHotKeyScripts\temp\%PreviousSlideNumber%.png
 	;file := "C:\Users\SK\Documents\AutoHotKey\" . %CurrentSlideNumber% . ".png"
 	;file := "C:\Users\SK\Documents\AutoHotKey\1.png"
 	;MsgBox %coord%,%MonitorNumber%,%PreviousSlideNumber%,%file%
