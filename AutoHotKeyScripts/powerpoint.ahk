@@ -37,6 +37,7 @@ monitorDisplay(objppt, MonitorCount){
 		var2++
 		;MsgBox var2(MonitorNumber) val = %var2%
 		setDisplay(var2, CurrentSlideNumber-1)
+		CurrentSlideNumber--
 		var2 := 0
 		;MsgBox end of Loop monitor var2 = %var2%
 	}
