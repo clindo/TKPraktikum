@@ -12,7 +12,6 @@ f5::
 	;MsgBox %var%
 	saveppt := objppt.Slides(var).Export(A_ScriptDir . "\" . var . ".png", "PNG")
   }
-  ;pt := ppt.ActivePresentation.(test, ppSaveAsPNG)
   SysGet, MonitorCount, MonitorCount
   ;MsgBox %MonitorCount%
   MsgBox saved
