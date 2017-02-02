@@ -8,8 +8,10 @@ f5::
   catch e {
 	MsgBox % "Error in " e.Message ", which was called at line " e.Line 
   }
-  objppt.Export("E:\AHK\AutoHotKeyScripts\temp",FilterName:="png",1366,768)
-	
+  ;objppt.Export("C:\Users\SK\Documents\AutoHotKey\temp",FilterName:="png",1366,768)
+  ;"C:\Users\SK\Documents\AutoHotKey\temp", "E:\AHK\AutoHotKeyScripts\temp"
+  path = %A_WorkingDir%\temp
+  objppt.Export(path, FilterName:="png",1366,768)
   ;Loop %TotalSlides%{
 	;var++
 	;MsgBox %var%
@@ -40,6 +42,7 @@ monitorDisplay(objppt, MonitorCount){
 		CurrentSlideNumber :=% objppt.SlideShowWindow.View.Slide.SlideIndex
 		}
 	catch{
+		FileRemoveDir, temp, 1
 		ExitApp
 		}
 	;MsgBox %CurrentSlideNumber% is the current slide
@@ -65,7 +68,7 @@ getCoordinates(MonitorNumber){
 setDisplay(MonitorNumber, PreviousSlideNumber){
 global
 	coord := getCoordinates(MonitorNumber)
-	SetEnv file, E:\AHK\AutoHotKeyScripts\temp\Slide%PreviousSlideNumber%.png
+	SetEnv file, %A_WorkingDir%\temp\Slide%PreviousSlideNumber%.png
 	;file := "C:\Users\SK\Documents\AutoHotKey\Slide" . %CurrentSlideNumber% . ".png"
 	;file := "C:\Users\SK\Documents\AutoHotKey\1.png"
 	;MsgBox %coord%,%MonitorNumber%,%PreviousSlideNumber%,%file%
@@ -78,4 +81,5 @@ global
 
 ESC::
 	objppt.SlideShowWindow.View.Exit
+	FileRemoveDir, temp, 1
 	ExitApp
