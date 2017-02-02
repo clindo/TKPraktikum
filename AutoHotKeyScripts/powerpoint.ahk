@@ -8,15 +8,17 @@ f5::
   catch e {
 	MsgBox % "Error in " e.Message ", which was called at line " e.Line 
   }
-  Loop %TotalSlides%{
-	var++
+  objppt.Export("E:\AHK\AutoHotKeyScripts\temp",FilterName:="png",1366,768)
+	
+  ;Loop %TotalSlides%{
+	;var++
 	;MsgBox %var%
-	saveppt := objppt.Slides(var).Export(A_ScriptDir . "\temp\" . var . ".png", "PNG")
-  }
+	;saveppt := objppt.Slides(var).Export(A_ScriptDir . "\temp\" . var . ".png", "PNG",1366,768)
+  ;}
   ;pt := ppt.ActivePresentation.(test, ppSaveAsPNG)
   SysGet, MonitorCount, MonitorCount
   ;MsgBox %MonitorCount%
-  MsgBox saved
+  ;MsgBox saved
   ;MsgBox inside %MonitorCount%
   ppt := objppt.SlideShowSettings
   ppt.Run
@@ -54,7 +56,7 @@ monitorDisplay(objppt, MonitorCount){
 }	
 	
 getCoordinates(MonitorNumber){
-	coord := 1920*MonitorNumber
+	coord := 1366*MonitorNumber
 	return coord
 }
 
@@ -63,8 +65,8 @@ getCoordinates(MonitorNumber){
 setDisplay(MonitorNumber, PreviousSlideNumber){
 global
 	coord := getCoordinates(MonitorNumber)
-	SetEnv file, E:\AHK\AutoHotKeyScripts\temp\%PreviousSlideNumber%.png
-	;file := "C:\Users\SK\Documents\AutoHotKey\" . %CurrentSlideNumber% . ".png"
+	SetEnv file, E:\AHK\AutoHotKeyScripts\temp\Slide%PreviousSlideNumber%.png
+	;file := "C:\Users\SK\Documents\AutoHotKey\Slide" . %CurrentSlideNumber% . ".png"
 	;file := "C:\Users\SK\Documents\AutoHotKey\1.png"
 	;MsgBox %coord%,%MonitorNumber%,%PreviousSlideNumber%,%file%
 	Gui, 1:destroy
@@ -73,3 +75,7 @@ global
 	Gui, 1:Add, Picture, w%A_ScreenWidth% h-1, %file%	
 	Gui, 1:Show, x%coord% y0 maximize
 }
+
+ESC::
+	objppt.SlideShowWindow.View.Exit
+	ExitApp
