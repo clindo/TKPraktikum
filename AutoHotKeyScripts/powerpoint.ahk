@@ -10,8 +10,10 @@ f5::
   }
   ;objppt.Export("C:\Users\SK\Documents\AutoHotKey\temp",FilterName:="png",1366,768)
   ;"C:\Users\SK\Documents\AutoHotKey\temp", "E:\AHK\AutoHotKeyScripts\temp"
-  path = %A_WorkingDir%\temp
-  objppt.Export(path, FilterName:="png",1366,768)
+  
+  ;path = %A_WorkingDir%\temp
+  ;objppt.Export(path, FilterName:="png",1366,768)
+  
   ;Loop %TotalSlides%{
 	;var++
 	;MsgBox %var%
@@ -28,6 +30,9 @@ f5::
 Return
 
 Right::
+	SlideNum :=% objppt.SlideShowWindow.View.Slide.SlideIndex
+	;MsgBox %SlideNum%
+	saveppt := objppt.Slides(SlideNum).Export(A_ScriptDir . "\temp\" . SlideNum . ".png", "PNG",1366,768)
 	objppt.SlideShowWindow.View.Next
 	monitorDisplay(objppt, MonitorCount)
 	return
