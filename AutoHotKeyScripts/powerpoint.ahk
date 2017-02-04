@@ -52,20 +52,25 @@ monitorDisplay(objppt, MonitorCount){
 		}
 	;MsgBox %CurrentSlideNumber% is the current slide
 	monitor := MonitorCount-1
+	var2 := 0
 	Loop %monitor%{
 		;MsgBox insideloop
 		var2++
 		;MsgBox var2(MonitorNumber) val = %var2%
 		setDisplay(var2, CurrentSlideNumber-1)
 		CurrentSlideNumber--
-		var2 := 0
+		;var2 := 0
 		;MsgBox end of Loop monitor var2 = %var2%
 	}
 }	
 	
 getCoordinates(MonitorNumber){
-	coord := 1366*MonitorNumber
-	return coord
+	;coord := 1366*MonitorNumber
+	if(MonitorNumber = 1)
+		return 1920
+	if(MonitorNumber = 2)
+		return 3286
+	;return coord
 }
 
 ;SetEnv file, C:\Users\SK\Documents\AutoHotKey\1.png
@@ -73,15 +78,15 @@ getCoordinates(MonitorNumber){
 setDisplay(MonitorNumber, PreviousSlideNumber){
 global
 	coord := getCoordinates(MonitorNumber)
-	SetEnv file, %A_WorkingDir%\temp\Slide%PreviousSlideNumber%.png
+	SetEnv file, %A_WorkingDir%\temp\%PreviousSlideNumber%.png
 	;file := "C:\Users\SK\Documents\AutoHotKey\Slide" . %CurrentSlideNumber% . ".png"
 	;file := "C:\Users\SK\Documents\AutoHotKey\1.png"
 	;MsgBox %coord%,%MonitorNumber%,%PreviousSlideNumber%,%file%
-	Gui, 1:destroy
-	Gui, 1:+AlwaysOnTop +LastFound +Owner -Caption
-	Gui, 1:Color, Black
-	Gui, 1:Add, Picture, w%A_ScreenWidth% h-1, %file%	
-	Gui, 1:Show, x%coord% y0 maximize
+	Gui, %MonitorNumber%:destroy
+	Gui, %MonitorNumber%:+AlwaysOnTop +LastFound +Owner -Caption
+	Gui, %MonitorNumber%:Color, Black
+	Gui, %MonitorNumber%:Add, Picture, w%A_ScreenWidth% h-1, %file%	
+	Gui, %MonitorNumber%:Show, x%coord% y0 maximize
 }
 
 ESC::
