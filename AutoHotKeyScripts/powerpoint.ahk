@@ -1,3 +1,5 @@
+#include, Gdip.ahk 
+
 f5:: 
   try{
     ppt := ComObjActive("PowerPoint.Application")
@@ -32,7 +34,8 @@ Return
 Right::
 	SlideNum :=% objppt.SlideShowWindow.View.Slide.SlideIndex
 	;MsgBox %SlideNum%
-	saveppt := objppt.Slides(SlideNum).Export(A_ScriptDir . "\temp\" . SlideNum . ".png", "PNG",1366,768)
+	saveScreenshot(SlideNum)
+	;saveppt := objppt.Slides(SlideNum).Export(A_ScriptDir . "\temp\" . SlideNum . ".png", "PNG",1366,768)
 	objppt.SlideShowWindow.View.Next
 	monitorDisplay(objppt, MonitorCount)
 	return
@@ -88,6 +91,24 @@ global
 	Gui, %MonitorNumber%:Add, Picture, w%A_ScreenWidth% h-1, %file%	
 	Gui, %MonitorNumber%:Show, x%coord% y0 maximize
 }
+
+Screenshot(outfile)
+{
+    pToken := Gdip_Startup()
+
+    screen=0|0|%A_ScreenWidth%|%A_ScreenHeight%
+    pBitmap := Gdip_BitmapFromScreen(screen)
+
+    Gdip_SaveBitmapToFile(pBitmap, outfile, 100)
+    Gdip_DisposeImage(pBitmap)
+    Gdip_Shutdown(pToken)
+}
+
+saveScreenshot(SlideNumber){
+	file := A_WorkingDir . "\temp\" . SlideNumber . ".png"
+	Screenshot(file)
+}
+
 
 ESC::
 	objppt.SlideShowWindow.View.Exit
