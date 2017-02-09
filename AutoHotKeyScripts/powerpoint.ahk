@@ -72,7 +72,7 @@ getCoordinates(MonitorNumber){
 	if(MonitorNumber = 1)
 		return 1920
 	if(MonitorNumber = 2)
-		return 3840
+		return 3286
 	;return coord
 }
 
