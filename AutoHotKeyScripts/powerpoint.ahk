@@ -88,7 +88,7 @@ global
 	Gui, %MonitorNumber%:destroy
 	Gui, %MonitorNumber%:+AlwaysOnTop +LastFound +Owner -Caption
 	Gui, %MonitorNumber%:Color, Black
-	Gui, %MonitorNumber%:Add, Picture, w1024 h-1, %file%	
+	Gui, %MonitorNumber%:Add, Picture, w%A_ScreenWidth% h-1, %file%	
 	Gui, %MonitorNumber%:Show, x%coord% y0 maximize
 }
 
