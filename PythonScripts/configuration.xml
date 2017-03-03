@@ -6,4 +6,5 @@
     <TRIAL trial="YES"> </TRIAL>
     <Share_BTN_COOR x="200" y="20"> </Share_BTN_COOR>
     <WATER_MARK_COOR x="400" y="600"></WATER_MARK_COOR>
+    <APP_START_TIME time="50"></APP_START_TIME>>
 </RootPath>
