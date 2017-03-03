@@ -11,6 +11,7 @@ class Config:
     Share_Btn_Y = 0
     Water_Mark_Btn_X = 0
     Water_Mark_Btn_Y = 0
+    App_time = 0
     log = log()
 
     def read_config(self):
@@ -74,6 +75,10 @@ class Config:
         Config.Water_Mark_Btn_X = int(Config.Water_Mark_Btn_X)
         Config.Water_Mark_Btn_Y = watermark_btn.get('y')
         Config.Water_Mark_Btn_Y = int(Config.Water_Mark_Btn_Y)
+        #Get the sleep time for Camtasia app to start
+        app_time = root.find('APP_START_TIME')
+        Config.App_time = app_time.get('time')
+        Config.App_time = int(Config.App_time)
         return 1
 
 
