@@ -46,7 +46,9 @@ class business_logic:
 
         #app.Window_(best_match='Dialog', top_level_only=True).PrintControlIdentifiers()
         #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="Untitled Project",class_name="Edit").SetText(time.time())
-        app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="Untitled Project",class_name="Edit").SetText(file)
+        #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="Untitled Project",class_name="Edit").SetText(file)
+        stripped_file_name = os.path.splitext(os.path.basename(file))[0]
+        app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="Untitled Project",class_name="Edit").SetText(stripped_file_name)
         app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').Click()
         time.sleep(2)
         #child_elements.Wait('visible',timeout=20)
