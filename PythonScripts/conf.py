@@ -5,6 +5,7 @@ class Config:
     'Configuration Class for File Paths'
     Original_Path = ""
     Moved_Path = ""
+    Saved_Path = ""
     Dialogs = 0
     Trial = ""
     Share_Btn_X = 0
@@ -38,6 +39,17 @@ class Config:
         Config.Moved_Path = move_path.get('path2')
         if Config.Moved_Path == "":
             log.logger.info('Failed to read the copy file path')
+            return 0
+
+        #Get the folder path where files are to be saved after rendering
+        saved_path = root.find('SAVING_PATH')
+        if saved_path == "":
+            log.logger.info('Failed to read the saved file path attribute')
+            return 0
+
+        Config.Saved_Path = saved_path.get('path3')
+        if Config.Saved_Path == "":
+            log.logger.info('Failed to read the saving path')
             return 0
 
         #Get the no. of dialogs screens during coversion

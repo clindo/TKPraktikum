@@ -2,9 +2,10 @@
 <RootPath>
     <Path path1="E:\testserver"> </Path>
     <MovePath path2="E:\testservercopy"> </MovePath>
+    <SAVING_PATH path3="E:\DSS\DSS_3_Sem\Pratikum\video"></SAVING_PATH>
     <No_Screens dialog="5"> </No_Screens>
-    <TRIAL trial="YES"> </TRIAL>
+    <TRIAL trial="NO"> </TRIAL>
     <Share_BTN_COOR x="200" y="20"> </Share_BTN_COOR>
     <WATER_MARK_COOR x="400" y="600"></WATER_MARK_COOR>
-    <APP_START_TIME time="50"></APP_START_TIME>>
+    <APP_START_TIME time="50"></APP_START_TIME>
 </RootPath>

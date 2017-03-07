@@ -43,7 +43,12 @@ while 1:
         bi = business_logic()
         for file in Files:
             status = bi.convert_files(file)
-            if status == 1:
-                print "Rendering Succesfull!!"
+            #if status == 1:
+            print "Rendering Succesfull!!"
+            print "Start renaming to index.html"
+            backslash = "\\"
+            x = Path.Saved_Path+backslash+status
+            y = status+".html"
+            Auto.renameFile(x,y)
 
     before = after

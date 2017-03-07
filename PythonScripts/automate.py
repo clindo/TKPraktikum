@@ -42,3 +42,10 @@ class Automate:
                     return 0
         return 1
 
+    def renameFile(self,path,tochangefilename):
+        fileName = os.listdir(path)
+        for files in fileName:
+            if(files == tochangefilename):
+                os.rename(path+"\\"+tochangefilename, path+"\\"+"index.html")
+
+
