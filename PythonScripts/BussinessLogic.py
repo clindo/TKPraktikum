@@ -11,7 +11,7 @@ class business_logic:
     def convert_files(self,file):
         _config = Config()
         backslash = "\\"
-        app_path = _config.Moved_Path+backslash+file
+        app_path = _config.Original_Path+backslash+file
         #print(app_path)
         try:
             os.startfile(app_path)

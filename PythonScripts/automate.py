@@ -8,12 +8,16 @@ class Automate:
     #Initialization Class for Automation
     log = log()
 
-    def Init(self):
-        __configuration__ = Config()
-        status = __configuration__.read_config()
-        if status == 0:
-            return 0
-        return 1
+    def __init__(self):
+        self.__configuration__ = Config()
+        status = self.__configuration__.read_config()
+
+    #def Init(self):
+    #    __configuration__ = Config()
+    #    status = __configuration__.read_config()
+    #    if status == 0:
+    #        return 0
+    #    return 1
 
     def GetFiles(self, paths):
         files = []
