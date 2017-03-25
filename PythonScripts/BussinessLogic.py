@@ -11,10 +11,13 @@ class business_logic:
     def convert_files(self,file):
         _config = Config()
         backslash = "\\"
-        app_path = _config.Moved_Path+backslash+file
+        app_path = _config.Original_Path+backslash+file
         #print(app_path)
-        os.startfile(app_path)
-        time.sleep(50)
+        try:
+            os.startfile(app_path)
+        except TimeoutError as e:
+            print "Timeout"
+        time.sleep(_config.App_time)
         print("Sleep End!!!")
         app = Application().connect(path=r"C:\Program Files\TechSmith\Camtasia 9\CamtasiaStudio.exe")
 
@@ -42,11 +45,16 @@ class business_logic:
             app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
 
         #app.Window_(best_match='Dialog', top_level_only=True).PrintControlIdentifiers()
-        app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="Untitled Project",class_name="Edit").SetText(time.time())
+        #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="Untitled Project",class_name="Edit").SetText(time.time())
+        #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="Untitled Project",class_name="Edit").SetText(file)
+        stripped_file_name = os.path.splitext(os.path.basename(file))[0]
+        app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="Untitled Project",class_name="Edit").SetText(stripped_file_name)
+        #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="C:\\Users\\sachinbm\\Documents\\Camtasia Studio",class_name="Edit").SetText("E:\\testcamtasia")
         app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').Click()
         time.sleep(2)
         #child_elements.Wait('visible',timeout=20)
         app.kill_()
         time.sleep(10)
-        print("Rendering Succcessful")
+        #print("Rendering Succcessful")
+        return stripped_file_name
         #Finish rendering

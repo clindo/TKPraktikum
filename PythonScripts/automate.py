@@ -8,12 +8,16 @@ class Automate:
     #Initialization Class for Automation
     log = log()
 
-    def Init(self):
-        __configuration__ = Config()
-        status = __configuration__.read_config()
-        if status == 0:
-            return 0
-        return 1
+    def __init__(self):
+        self.__configuration__ = Config()
+        status = self.__configuration__.read_config()
+
+    #def Init(self):
+    #    __configuration__ = Config()
+    #    status = __configuration__.read_config()
+    #    if status == 0:
+    #        return 0
+    #    return 1
 
     def GetFiles(self, paths):
         files = []
@@ -21,7 +25,7 @@ class Automate:
             files.append(file)
         return files
 
-    def copyFiles(self, src_folder,dest_folder):
+    def copyFiles(self, src_folder,dest_folder,added):
         if src_folder == "" or dest_folder == "":
             log.logger.error('Source or Destination Folder does not exists')
             return 0
@@ -30,7 +34,8 @@ class Automate:
             log.logger.error('No files found in src folder')
             return 0
 
-        for file in os.listdir(src_folder):
+        #for file in os.listdir(src_folder):
+        for file in added:
             print ("File being moved -----> " + file)
             full_file_name = os.path.join( src_folder, file )
             if os.path.isfile(full_file_name):
@@ -39,5 +44,12 @@ class Automate:
                 except shutil.Error as e:
                     log.logger.error('Could not copy the files %s',e)
                     return 0
-                return 1
+        return 1
+
+    def renameFile(self,path,tochangefilename):
+        fileName = os.listdir(path)
+        for files in fileName:
+            if(files == tochangefilename):
+                os.rename(path+"\\"+tochangefilename, path+"\\"+"index.html")
+
 
