@@ -15,8 +15,8 @@ class business_logic:
         #print(app_path)
         try:
             os.startfile(app_path)
-        except TimeoutError as e:
-            print "Timeout"
+        except OSError as e:
+            print "Path not found : Enter a valid path in configuration.xml "
         time.sleep(_config.App_time)
         print("Sleep End!!!")
         try:
