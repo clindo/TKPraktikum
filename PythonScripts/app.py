@@ -17,7 +17,7 @@ while 1:
     added = [f for f in after if not f in before]
 
     if added:
-        print "Added: ", ", ".join (added)
+        print "Added: ", ", ".join(added)
         bi = business_logic()
         for file in added:
             file_name = bi.convert_files(file)
