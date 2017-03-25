@@ -98,20 +98,25 @@ global
 	;file := "C:\Users\SK\Documents\AutoHotKey\Slide" . %CurrentSlideNumber% . ".png"
 	;file := "C:\Users\SK\Documents\AutoHotKey\1.png"
 	;MsgBox %coord%,%MonitorNumber%,%PreviousSlideNumber%,%file%
-	if(MonitorNumber = "1"){
-		Gui, %MonitorNumber%:destroy
-		Gui, %MonitorNumber%:+AlwaysOnTop +LastFound +Owner -Caption
-		Gui, %MonitorNumber%:Color, Black
-		Gui, %MonitorNumber%:Add, Picture, w1366 h-1, %file%	
-		Gui, %MonitorNumber%:Show, x%coord% y0 maximize
-	}
-	if(MonitorNumber = "2"){
-		Gui, %MonitorNumber%:destroy
-		Gui, %MonitorNumber%:+AlwaysOnTop +LastFound +Owner -Caption
-		Gui, %MonitorNumber%:Color, Black
-		Gui, %MonitorNumber%:Add, Picture, w1024 h768, %file%	
-		Gui, %MonitorNumber%:Show, x%coord% y0 maximize
-	}
+	;if(MonitorNumber = "1"){
+		;Gui, %MonitorNumber%:destroy
+		;Gui, %MonitorNumber%:+AlwaysOnTop +LastFound +Owner -Caption
+		;Gui, %MonitorNumber%:Color, Black
+		;Gui, %MonitorNumber%:Add, Picture, w1024 h-1, %file%	
+		;Gui, %MonitorNumber%:Show, x%coord% y0 maximize
+	;}
+	;if(MonitorNumber = "2"){
+		;Gui, %MonitorNumber%:destroy
+		;Gui, %MonitorNumber%:+AlwaysOnTop +LastFound +Owner -Caption
+		;Gui, %MonitorNumber%:Color, Black
+		;Gui, %MonitorNumber%:Add, Picture, w1024 h768, %file%	
+		;Gui, %MonitorNumber%:Show, x%coord% y0 maximize
+	;}
+	Gui, %MonitorNumber%:destroy
+	Gui, %MonitorNumber%:+AlwaysOnTop +LastFound +Owner -Caption
+	Gui, %MonitorNumber%:Color, Black
+	Gui, %MonitorNumber%:Add, Picture, w1024 h768, %file%	
+	Gui, %MonitorNumber%:Show, x%coord% y0 maximize
 }
 
 Screenshot(outfile)
