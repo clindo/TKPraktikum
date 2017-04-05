@@ -7,7 +7,7 @@ import os
 import datetime
 import time
 
-class business_logic:
+class render_video:
 
     def convert_files(self,file):
         _config = Config()

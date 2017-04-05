@@ -1,5 +1,5 @@
-from automate import Automate
-from BussinessLogic import business_logic
+from helper import Automate
+from Render_video import render_video
 from conf import Config
 from logger import log
 import sys
@@ -9,7 +9,7 @@ import os, time
 log = log()
 Auto = Automate()
 log.logger.info('Automate initialized')
-bi = business_logic()
+bi = render_video()
 
 #Get the files already present in the watch directory
 before = dict([(f, None) for f in os.listdir(Auto.__configuration__.Original_Path)])
