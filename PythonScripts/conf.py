@@ -15,6 +15,7 @@ class Config:
     App_time = 0
     Dialog_wait_time = 0
     Rendering_wait_time = 0
+    Polling_time = 0
     log = log()
 
     def read_config(self):
@@ -104,6 +105,11 @@ class Config:
         rendering_wait_time = root.find('REND_WAIT_TIME')
         Config.Rendering_wait_time = rendering_wait_time.get('time3')
         Config.Rendering_wait_time = int(Config.Rendering_wait_time)
+
+        #Get the watch folder polling time
+        polling_time = root.find('POLLING_TIME')
+        Config.Polling_time = polling_time.get('time4')
+        Config.Polling_time = int(Config.Polling_time)
         return 1
 
 

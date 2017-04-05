@@ -50,5 +50,7 @@ class Automate:
         for files in fileName:
             if(files == tochangefilename):
                 os.rename(path+"\\"+tochangefilename, path+"\\"+"index.html")
+                return 1
+        return 0
 
 
