@@ -109,13 +109,13 @@ class Config:
         #Get the wait time for Dialog box
         dialog_wait_time = root.find('DIALOG_WAIT_TIME')
         Config.Dialog_wait_time = dialog_wait_time.get('time2')
-        Config.Dialog_wait_time = int(Config.Dialog_wait_time)
+        Config.Dialog_wait_time = float(Config.Dialog_wait_time)
 
 
         #Get the rendering wait time
         rendering_wait_time = root.find('REND_WAIT_TIME')
         Config.Rendering_wait_time = rendering_wait_time.get('time3')
-        Config.Rendering_wait_time = int(Config.Rendering_wait_time)
+        Config.Rendering_wait_time = float(Config.Rendering_wait_time)
 
         #Get the watch folder polling time
         polling_time = root.find('POLLING_TIME')

@@ -2,6 +2,7 @@ from conf import Config
 from pywinauto.application import Application
 from pywinauto.findwindows import WindowAmbiguousError, WindowNotFoundError
 from logger import log
+from helper import Automate
 import time
 import os
 import datetime
@@ -15,6 +16,8 @@ class render_video:
         backslash = "\\"
         app_path = _config.Original_Path+backslash+file
         #print(app_path)
+        Auto=Automate()
+        renderTime=Auto.renderTime(app_path,_config.Rendering_wait_time)
         if os.path.exists(app_path):
             os.startfile(app_path)
         else:
@@ -76,7 +79,7 @@ class render_video:
         app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="Untitled Project",class_name="Edit").SetText(stripped_file_name)
         #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="C:\\Users\\sachinbm\\Documents\\Camtasia Studio",class_name="Edit").SetText("E:\\testcamtasia")
         app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').Click()
-        time.sleep(_config.Rendering_wait_time)
+        time.sleep(renderTime)
         #child_elements.Wait('visible',timeout=20)
         app.kill_()
         time.sleep(_config.Dialog_wait_time)
