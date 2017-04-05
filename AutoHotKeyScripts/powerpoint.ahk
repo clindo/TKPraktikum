@@ -16,10 +16,13 @@ Return
 
 Right::
 	try{
+		ppt := ComObjActive("PowerPoint.Application")
+		objppt := ppt.ActivePresentation
 		SlideNum :=% objppt.SlideShowWindow.View.Slide.SlideIndex
 	}
 	catch e {
-		MsgBox % "Error in getting slide index. Please run the app again"
+		MsgBox % "Error in getting slides. Please run the MultiMonitor application again"
+		ExitApp
 	}
 	saveScreenshot(SlideNum)
 	objppt.SlideShowWindow.View.Next
@@ -27,7 +30,15 @@ Right::
 	return
 	
 Left::
-	objppt.SlideShowWindow.View.Previous
+	try{
+		ppt := ComObjActive("PowerPoint.Application")
+		objppt := ppt.ActivePresentation
+		objppt.SlideShowWindow.View.Previous
+	}
+	catch e {
+		MsgBox % "Error in getting slides. Please run the MultiMonitor application again"
+		ExitApp
+	}
 	monitorDisplay(objppt, MonitorCount)
 	return
 
@@ -96,7 +107,6 @@ global
 Screenshot(outfile)
 {
     pToken := Gdip_Startup()
-
     screen=0|0|%A_ScreenWidth%|%A_ScreenHeight%
     pBitmap := Gdip_BitmapFromScreen(screen)
 
