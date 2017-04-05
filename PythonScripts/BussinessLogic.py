@@ -16,7 +16,8 @@ class business_logic:
         os.startfile(app_path)
         time.sleep(_config.App_time)
         print("Sleep End!!!")
-        app = Application().connect(path=r"C:\Program Files\TechSmith\Camtasia 9\CamtasiaStudio.exe")
+        #app = Application().connect(path=r"C:\Program Files\TechSmith\Camtasia 9\CamtasiaStudio.exe")
+        app = Application().connect(path=_config.Camtasia_Path)
 
         #for TRIAL
         if _config.Trial == 'YES':
@@ -55,5 +56,6 @@ class business_logic:
         app.kill_()
         time.sleep(5)
         #print("Rendering Succcessful")
+
         return stripped_file_name
         #Finish rendering

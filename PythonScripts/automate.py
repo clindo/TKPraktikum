@@ -3,28 +3,26 @@ import os
 import shutil
 from logger import log
 
-
+#Initialization Class for Automation
 class Automate:
-    #Initialization Class for Automation
+
+    #Initialize logging
     log = log()
 
+    #Init function, reads the configuration parameters
     def __init__(self):
+        #Read configuration
         self.__configuration__ = Config()
         status = self.__configuration__.read_config()
 
-    #def Init(self):
-    #    __configuration__ = Config()
-    #    status = __configuration__.read_config()
-    #    if status == 0:
-    #        return 0
-    #    return 1
-
+    #Helper function to get the files from a directory
     def GetFiles(self, paths):
         files = []
         for file in os.listdir(paths):
             files.append(file)
         return files
 
+    #Helper function to copy files from a src dir to dest dir
     def copyFiles(self, src_folder,dest_folder,added):
         if src_folder == "" or dest_folder == "":
             log.logger.error('Source or Destination Folder does not exists')
@@ -46,6 +44,7 @@ class Automate:
                     return 0
         return 1
 
+    #Helper function to rename the rendered trek file embedded HTML to index.html
     def renameFile(self,path,tochangefilename):
         fileName = os.listdir(path)
         for files in fileName:

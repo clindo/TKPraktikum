@@ -4,7 +4,7 @@ from logger import log
 class Config:
     'Configuration Class for File Paths'
     Original_Path = ""
-    Moved_Path = ""
+    Camtasia_Path = ""
     Saved_Path = ""
     Dialogs = 0
     Trial = ""
@@ -31,14 +31,14 @@ class Config:
             return 0
 
         #Get the folder path where files are to be moved
-        move_path = root.find('MovePath')
-        if move_path == "":
-            log.logger.info('Failed to read the copy file path attribute')
+        camtasia_path = root.find('CamtasiaPath')
+        if camtasia_path == "":
+            log.logger.info('Failed to read the Camtasia file path attribute')
             return 0
 
-        Config.Moved_Path = move_path.get('path2')
-        if Config.Moved_Path == "":
-            log.logger.info('Failed to read the copy file path')
+        Config.Camtasia_Path = camtasia_path.get('path2')
+        if Config.Camtasia_Path == "":
+            log.logger.info('Failed to read the Camtasia file path')
             return 0
 
         #Get the folder path where files are to be saved after rendering
