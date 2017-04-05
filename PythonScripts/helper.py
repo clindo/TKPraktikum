@@ -59,4 +59,11 @@ class Automate:
                 return 1
         return 0
 
-
+    #Helper function to calculate wait time for rendering based on File Size
+    def renderTime(self, file, renderingPerMB):
+        st = os.stat(file)
+        sizeBytes = st.st_size
+        sizeBytes /= (1024 * 1024)
+        renderTime = sizeBytes * renderingPerMB
+        renderTime /= 1000
+        return renderTime
