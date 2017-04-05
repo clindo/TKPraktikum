@@ -93,15 +93,15 @@ class Config:
         app_time = root.find('APP_START_TIME')
         Config.App_time = app_time.get('time')
         Config.App_time = int(Config.App_time)
-        return 1
+
         #Get the wait time for Dialog box
         dialog_wait_time = root.find('DIALOG_WAIT_TIME')
         Config.Dialog_wait_time = dialog_wait_time.get('time2')
         Config.Dialog_wait_time = int(Config.Dialog_wait_time)
-        return 1
+
 
         #Get the rendering wait time
-        rendering_wait_time = root.find('DIALOG_WAIT_TIME')
+        rendering_wait_time = root.find('REND_WAIT_TIME')
         Config.Rendering_wait_time = rendering_wait_time.get('time3')
         Config.Rendering_wait_time = int(Config.Rendering_wait_time)
         return 1
