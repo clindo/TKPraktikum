@@ -13,6 +13,8 @@ class Config:
     Water_Mark_Btn_X = 0
     Water_Mark_Btn_Y = 0
     App_time = 0
+    Dialog_wait_time = 0
+    Rendering_wait_time = 0
     log = log()
 
     def read_config(self):
@@ -91,6 +93,17 @@ class Config:
         app_time = root.find('APP_START_TIME')
         Config.App_time = app_time.get('time')
         Config.App_time = int(Config.App_time)
+        return 1
+        #Get the wait time for Dialog box
+        dialog_wait_time = root.find('DIALOG_WAIT_TIME')
+        Config.Dialog_wait_time = dialog_wait_time.get('time2')
+        Config.Dialog_wait_time = int(Config.Dialog_wait_time)
+        return 1
+
+        #Get the rendering wait time
+        rendering_wait_time = root.find('DIALOG_WAIT_TIME')
+        Config.Rendering_wait_time = rendering_wait_time.get('time3')
+        Config.Rendering_wait_time = int(Config.Rendering_wait_time)
         return 1
 
 

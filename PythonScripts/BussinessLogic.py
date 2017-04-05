@@ -38,20 +38,20 @@ class business_logic:
         if _config.Trial == 'YES':
             #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').SetFocus()
             app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').Click()
-            time.sleep(3)
+            time.sleep(_config.Dialog_wait_time)
         #end for TRIAL
         child_elements = app[u'Camtasia 9']
         #remark
         child_elements.ClickInput(coords=(_config.Share_Btn_X, _config.Share_Btn_Y))
         child_elements.TypeKeys("{DOWN}")
         child_elements.TypeKeys("{ENTER}")
-        time.sleep(5)
+        time.sleep(_config.Dialog_wait_time)
 
         #for TRIAL
         if _config.Trial == 'YES':
             child_elements.Wait('visible',timeout=20)
             child_elements.ClickInput(coords=(_config.Water_Mark_Btn_X, _config.Water_Mark_Btn_Y))
-            time.sleep(5)
+            time.sleep(_config.Dialog_wait_time)
         #end for TRIAL
         for i in range(_config.Dialogs):
         #for no_dialogs in _config.Dialogs:
@@ -66,10 +66,10 @@ class business_logic:
         app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="Untitled Project",class_name="Edit").SetText(stripped_file_name)
         #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="C:\\Users\\sachinbm\\Documents\\Camtasia Studio",class_name="Edit").SetText("E:\\testcamtasia")
         app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').Click()
-        time.sleep(3)
+        time.sleep(_config.Rendering_wait_time)
         #child_elements.Wait('visible',timeout=20)
         app.kill_()
-        time.sleep(5)
+        time.sleep(_config.Dialog_wait_time)
         #print("Rendering Succcessful")
 
         return stripped_file_name
