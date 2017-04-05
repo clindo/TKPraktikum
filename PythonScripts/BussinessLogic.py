@@ -1,5 +1,6 @@
 from conf import Config
 from pywinauto.application import Application
+from pywinauto.findwindows import WindowAmbiguousError, WindowNotFoundError
 from logger import log
 import time
 import os
@@ -17,10 +18,22 @@ class business_logic:
         time.sleep(_config.App_time)
         print("Sleep End!!!")
         #app = Application().connect(path=r"C:\Program Files\TechSmith\Camtasia 9\CamtasiaStudio.exe")
-        app = Application().connect(path=_config.Camtasia_Path)
-        app_dialog = app.top_window_()
-        app_dialog.Minimize()
-        app_dialog.Restore()
+
+        try:
+            app = Application().connect(path=_config.Camtasia_Path)
+            # Access app's window object
+            app_dialog = app.top_window_()
+            app_dialog.Minimize()
+            app_dialog.Restore()
+            #app_dialog.SetFocus()
+        except(WindowNotFoundError):
+            print ' not found Camtasia'
+            pass
+        except(WindowAmbiguousError):
+            print 'There are too many Camtasia windows found'
+            pass
+
+
         #for TRIAL
         if _config.Trial == 'YES':
             #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').SetFocus()
