@@ -6,6 +6,7 @@ import time
 import os
 import datetime
 import time
+import sys
 
 class render_video:
 
@@ -14,13 +15,22 @@ class render_video:
         backslash = "\\"
         app_path = _config.Original_Path+backslash+file
         #print(app_path)
-        os.startfile(app_path)
+        if os.path.exists(app_path):
+            os.startfile(app_path)
+        else:
+            log.logger.info("Trek file does not exists")
+            return
         time.sleep(_config.App_time)
         print("Sleep End!!!")
         #app = Application().connect(path=r"C:\Program Files\TechSmith\Camtasia 9\CamtasiaStudio.exe")
 
         try:
-            app = Application().connect(path=_config.Camtasia_Path)
+            if os.path.exists(_config.Camtasia_Path):
+                app = Application().connect(path=_config.Camtasia_Path)
+            else:
+                log.logger.info("Camtasia executable not found!")
+                return
+
             # Access app's window object
             app_dialog = app.top_window_()
             app_dialog.Minimize()
@@ -40,7 +50,7 @@ class render_video:
             app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').Click()
             time.sleep(_config.Dialog_wait_time)
         #end for TRIAL
-        child_elements = app[u'Camtasia 9']
+        child_elements = app[_config.App_Name]
         #remark
         child_elements.ClickInput(coords=(_config.Share_Btn_X, _config.Share_Btn_Y))
         child_elements.TypeKeys("{DOWN}")

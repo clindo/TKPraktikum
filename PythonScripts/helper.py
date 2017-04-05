@@ -2,6 +2,7 @@ from conf import Config
 import os
 import shutil
 from logger import log
+import sys
 
 #Initialization Class for Automation
 class Automate:
@@ -14,6 +15,11 @@ class Automate:
         #Read configuration
         self.__configuration__ = Config()
         status = self.__configuration__.read_config()
+        if status == 1:
+            log.logger.info("Configuration read success")
+        else:
+            log.logger.info("Configuration read not successful!")
+            sys.exit()
 
     #Helper function to get the files from a directory
     def GetFiles(self, paths):

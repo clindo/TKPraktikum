@@ -5,6 +5,7 @@ class Config:
     'Configuration Class for File Paths'
     Original_Path = ""
     Camtasia_Path = ""
+    App_Name = ""
     Saved_Path = ""
     Dialogs = 0
     Trial = ""
@@ -42,6 +43,16 @@ class Config:
         Config.Camtasia_Path = camtasia_path.get('path2')
         if Config.Camtasia_Path == "":
             log.logger.info('Failed to read the Camtasia file path')
+            return 0
+
+        app_name = root.find('APP_NAME')
+        if app_name == "":
+            log.logger.info('Failed to read the App name attribute')
+            return 0
+
+        Config.App_Name = app_name.get('app_name')
+        if Config.App_Name == "":
+            log.logger.info('Failed to read App name')
             return 0
 
         #Get the folder path where files are to be saved after rendering

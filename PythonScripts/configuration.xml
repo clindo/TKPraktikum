@@ -2,6 +2,7 @@
 <RootPath>
     <Path path1="E:\testserver"> </Path>
     <CamtasiaPath path2="C:\Program Files\TechSmith\Camtasia 9\CamtasiaStudio.exe"> </CamtasiaPath>
+    <APP_NAME app_name="Camtasia 9"></APP_NAME>
     <SAVING_PATH path3="E:\DSS\DSS_3_Sem\Pratikum\video"></SAVING_PATH>
     <No_Screens dialog="5"> </No_Screens>
     <TRIAL trial="YES"> </TRIAL>
