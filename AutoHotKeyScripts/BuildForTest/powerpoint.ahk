@@ -1,4 +1,7 @@
 #include, Gdip.ahk 
+FileReadLine, __Width, Resolution_Configuration.txt, 1
+FileReadLine, __Height, Resolution_Configuration.txt, 2
+
 f5:: 
   try{               
     ppt := ComObjActive("PowerPoint.Application")
@@ -103,7 +106,7 @@ global
 	Gui, %MonitorNumber%:destroy
 	Gui, %MonitorNumber%:+AlwaysOnTop +LastFound +Owner -Caption
 	Gui, %MonitorNumber%:Color, Black
-	Gui, %MonitorNumber%:Add, Picture, w1024 h768, %file%	
+	Gui, %MonitorNumber%:Add, Picture, w%__Width% h%__Height%, %file%	
 	Gui, %MonitorNumber%:Show, x%coord% y0 maximize
 }
 
