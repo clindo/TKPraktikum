@@ -24,7 +24,7 @@ class Config:
         tree = ET.parse('configuration.xml')
         root = tree.getroot()
         #Get the folder path where the files are present
-        path = root.find('Path')
+        path = root.find('WatchFolder')
         if path == "":
             log.logger.info('Failed to read the file path attribute')
             return 0
