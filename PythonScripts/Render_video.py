@@ -19,6 +19,9 @@ class render_video:
         #print(app_path)
         Auto=Automate()
         renderTime=Auto.renderTime(app_path,_config.Rendering_wait_time)
+        IsFileCopied=Auto.IsCopyFinished(app_path)
+        if IsFileCopied ==0:
+            return
         if os.path.exists(app_path):
             os.startfile(app_path)
         else:
@@ -102,7 +105,7 @@ class render_video:
         #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="Untitled Project",class_name="Edit").SetText(time.time())
         #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="Untitled Project",class_name="Edit").SetText(file)
         stripped_file_name = os.path.splitext(os.path.basename(file))[0]
-        dup_dir = Auto.check_duplicate(stripped_file_name);
+        dup_dir = Auto.check_duplicate(stripped_file_name,_config.Saved_Path);
         if dup_dir == 1:
             log.logger.info("Duplicate exists.The rendering will overwrite the existing directory")
 
