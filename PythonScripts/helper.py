@@ -1,5 +1,5 @@
 from conf import Config
-import os
+import os,io,time
 import shutil
 from logger import log
 import sys
@@ -10,9 +10,12 @@ class Automate:
     #Initialize logging
     log = log()
 
-    #Init function, reads the configuration parameters
-    def __init__(self):
-        #Read configuration
+    # #Init function, reads the configuration parameters
+    # def __init__(self):
+    #     #Read configuration
+    #     # self.__configuration__
+
+    def readConfig(self):
         self.__configuration__ = Config()
         status = self.__configuration__.read_config()
         if status == 1:
@@ -69,11 +72,26 @@ class Automate:
         return renderTime
 
     #Check is a duplicate exists and delete the duplicate folder
-    def check_duplicate(self,filename):
-        directories = os.listdir(self.__configuration__.Saved_Path)
+    def check_duplicate(self,filename,filePath):
+        directories = os.listdir(filePath)
         for dir in directories:
             if dir == filename:
-                shutil.rmtree(self.__configuration__.Saved_Path+'\\'+filename)
+                shutil.rmtree(filePath+'\\'+filename)
                 return 1
 
+        return 0
+
+    def IsCopyFinished(self,fileName):
+        timeout = 10   # [seconds]
+        timeout_start = time.time()
+
+        if os.path.exists(fileName):
+            while time.time() < timeout_start + timeout:
+                try:
+                    with io.FileIO(fileName, "r+") as fileObj:
+                        log.logger.info("File loading completed.")
+                        return 1
+                except IOError as ioe:
+                    pass
+        log.logger.info("Issue with file.")
         return 0
