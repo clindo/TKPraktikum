@@ -1,6 +1,6 @@
 #include, Gdip.ahk 
-FileReadLine, __Width, Resolution_Configuration.txt, 1
-FileReadLine, __Height, Resolution_Configuration.txt, 2
+FileReadLine, __Width, Resolution_Configuration.txt, 2
+FileReadLine, __Height, Resolution_Configuration.txt, 3
 
 f5:: 
   try{               
@@ -89,20 +89,6 @@ setDisplay(MonitorNumber, PreviousSlideNumber){
 global
 	coord := getCoordinates(MonitorNumber)
 	SetEnv file, %A_WorkingDir%\temp\%PreviousSlideNumber%.png
-	;if(MonitorNumber = "1"){
-		;Gui, %MonitorNumber%:destroy
-		;Gui, %MonitorNumber%:+AlwaysOnTop +LastFound +Owner -Caption
-		;Gui, %MonitorNumber%:Color, Black
-		;Gui, %MonitorNumber%:Add, Picture, w1024 h-1, %file%	
-		;Gui, %MonitorNumber%:Show, x%coord% y0 maximize
-	;}
-	;if(MonitorNumber = "2"){
-		;Gui, %MonitorNumber%:destroy
-		;Gui, %MonitorNumber%:+AlwaysOnTop +LastFound +Owner -Caption
-		;Gui, %MonitorNumber%:Color, Black
-		;Gui, %MonitorNumber%:Add, Picture, w1024 h768, %file%	
-		;Gui, %MonitorNumber%:Show, x%coord% y0 maximize
-	;}
 	Gui, %MonitorNumber%:destroy
 	Gui, %MonitorNumber%:+AlwaysOnTop +LastFound +Owner -Caption
 	Gui, %MonitorNumber%:Color, Black
