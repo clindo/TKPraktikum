@@ -1,3 +1,5 @@
+#This file contains the basic workflow of Camtasia UI Automation
+
 from helper import Automate
 from Render_video import render_video
 from conf import Config
@@ -6,9 +8,18 @@ import sys
 import os, time
 
 #Initialization
+#Creates an instane of logger class.
 log = log()
+
+#Creates an instane of Automate class.
+#which contains the helper functions.
 Auto = Automate()
+#Reads the configuration.xml to get configuration parameters
+Auto.readConfig()
+
 log.logger.info('Automate initialized')
+#Creates an instance of render_video class.
+#Which is done by pywinauto library
 bi = render_video()
 
 #Get the files already present in the watch directory
@@ -17,14 +28,17 @@ if os.path.exists(Auto.__configuration__.Original_Path):
     log.logger.info("Already existing files:")
     log.logger.info(before)
 else:
-    log.logger.info("Trec file path is invalid.")
-    sys.exit()
+    log.logger.error("-------> Trec file path is invalid. Recheck the configuration.xml, and RESTART THE APP ----->")
+    sys.exit() #Exits the automation app if configuration is not correct
+
+#Infinite loop to watch file changes in the WatchFolder
 while 1:
 
     fileNames = []
+    #Checking wether files currently present are already rendered successfully.
     with open("SuccessfullyRenderedFiles.txt") as file:
         for line in file:
-            line = line.strip() #or someother preprocessing
+            line = line.strip()
             fileNames.append(line)
     differenceList= list(set(before.keys())-set(fileNames))
     differenceJSON =dict([(f, None) for f in differenceList])
