@@ -46,6 +46,12 @@ class render_video:
             print 'There are too many Camtasia windows found'
             pass
 
+        if os.path.exists(app_path):
+            os.startfile(app_path)
+        else:
+            log.logger.info("Trek file does not exists... Exiting App")
+            app.kill()
+            return
 
         #for TRIAL
         if _config.Trial == 'YES':
