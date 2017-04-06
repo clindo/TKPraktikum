@@ -44,20 +44,19 @@ while 1:
     differenceJSON =dict([(f, None) for f in differenceList])
 
 
-    #Check new added files after every 10 seconds
+    #Check new added files after Polling_time
     time.sleep (Auto.__configuration__.Polling_time)
-    #Get the new added trek files
+    #Get the new added trec files
     if os.path.exists(Auto.__configuration__.Original_Path):
         after = dict ([(f, None) for f in os.listdir (Auto.__configuration__.Original_Path)])
         added = [f for f in after if not f in before]
         added+=differenceJSON
         # print  " addedJSON"+added
     else:
-        log.logger.info("Trek file path does not exists!")
+        log.logger.info("Trec file path does not exists!")
         sys.exit()
 
     if added:
-        #print "Added: ", ", ".join (added)
         log.logger.info("Files added:")
         log.logger.info(added)
         for file in added:
@@ -71,9 +70,10 @@ while 1:
 
                 if os.path.exists(full_path_of_rendered_file):
                     status = Auto.renameFile(full_path_of_rendered_file,rendered_html_file)
+                    #If the file is renamed successfully, then we are adding it to the SuccessfullyRenderedFiles.txt
                     if status == 1:
                         renderedFileList= open("SuccessfullyRenderedFiles.txt","a+")
-                        print rendered_file_name
+                        # print rendered_file_name
                         renderedFileList.write("%s.trec\n" % rendered_file_name)
                         renderedFileList.close()
                         log.logger.info("Renaming Successful!")

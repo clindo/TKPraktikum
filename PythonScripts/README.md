@@ -1,5 +1,5 @@
 
-This project is for automating the video conversion and uploading it to a moodle server.
+This project is for automating the video conversion .
 
 
 

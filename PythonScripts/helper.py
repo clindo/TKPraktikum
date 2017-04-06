@@ -1,3 +1,5 @@
+#This file has the helper functions for automation.
+
 from conf import Config
 import os,io,time
 import shutil
@@ -10,18 +12,14 @@ class Automate:
     #Initialize logging
     log = log()
 
-    # #Init function, reads the configuration parameters
-    # def __init__(self):
-    #     #Read configuration
-    #     # self.__configuration__
-
+    #Helper function to initialize configuration parameters
     def readConfig(self):
         self.__configuration__ = Config()
         status = self.__configuration__.read_config()
         if status == 1:
             log.logger.info("Configuration read success")
         else:
-            log.logger.info("Configuration read not successful!")
+            log.logger.info("Configuration read not successful! Exiting automation script")
             sys.exit()
 
     #Helper function to get the files from a directory
@@ -43,7 +41,7 @@ class Automate:
 
         #for file in os.listdir(src_folder):
         for file in added:
-            print ("File being moved -----> " + file)
+            # print ("File being moved -----> " + file)
             full_file_name = os.path.join( src_folder, file )
             if os.path.isfile(full_file_name):
                 try:
@@ -53,7 +51,7 @@ class Automate:
                     return 0
         return 1
 
-    #Helper function to rename the rendered trek file embedded HTML to index.html
+    #Helper function to rename the rendered trec file embedded HTML to index.html
     def renameFile(self,path,tochangefilename):
         fileName = os.listdir(path)
         for files in fileName:
@@ -71,20 +69,19 @@ class Automate:
         renderTime /= 1000
         return renderTime
 
-    #Check is a duplicate exists and delete the duplicate folder
+    #Helper function Check is a duplicate exists and delete the duplicate folder
     def check_duplicate(self,filename,filePath):
         directories = os.listdir(filePath)
         for dir in directories:
             if dir == filename:
                 shutil.rmtree(filePath+'\\'+filename)
                 return 1
-
         return 0
 
+    #Helper function Check if the file to render is copied completely before rendering
     def IsCopyFinished(self,fileName):
-        timeout = 10   # [seconds]
+        timeout = 3600   # [seconds]
         timeout_start = time.time()
-
         if os.path.exists(fileName):
             while time.time() < timeout_start + timeout:
                 try:

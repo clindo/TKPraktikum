@@ -1,3 +1,5 @@
+#This file is for reading the configuration.xml
+
 import xml.etree.ElementTree as ET
 from logger import log
 
@@ -19,6 +21,7 @@ class Config:
     Polling_time = 0
     log = log()
 
+    #Function to read the configuration.xml
     def read_config(self):
         log.logger.info('Reading configuration file')
         tree = ET.parse('configuration.xml')

@@ -1,3 +1,5 @@
+#This file contains logger initialization
+
 import logging
 
 class log:

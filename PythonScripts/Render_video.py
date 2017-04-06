@@ -1,3 +1,5 @@
+#This file contains render video logic using pywin auto library.
+
 from conf import Config
 from pywinauto.application import Application
 from pywinauto.findwindows import WindowAmbiguousError, WindowNotFoundError
@@ -25,11 +27,10 @@ class render_video:
         if os.path.exists(app_path):
             os.startfile(app_path)
         else:
-            log.logger.info("Trek file does not exists")
+            log.logger.info("Trec file does not exists")
             return
         time.sleep(_config.App_time)
-        print("Sleep End!!!")
-        #app = Application().connect(path=r"C:\Program Files\TechSmith\Camtasia 9\CamtasiaStudio.exe")
+        # print("Sleep End!!!")
 
         try:
             if os.path.exists(_config.Camtasia_Path):
@@ -38,44 +39,40 @@ class render_video:
                 log.logger.info("Camtasia executable not found!")
                 return
 
-            # Access app's window object
+            # To bring the Camtasia window to the focus.
             app_dialog = app.top_window_()
             app_dialog.Minimize()
             app_dialog.Restore()
-            #app_dialog.SetFocus()
         except(WindowNotFoundError):
-            print ' not found Camtasia'
-            pass
+            log.logger.info("Not found Camtasia... Exiting App")
+            app.kill()
+            return
         except(WindowAmbiguousError):
-            print 'There are too many Camtasia windows found'
-            pass
+            log.logger.info("There are too many Camtasia windows found... Exiting App")
+            app.kill()
+            return
 
         if os.path.exists(app_path):
             os.startfile(app_path)
         else:
-            log.logger.info("Trek file does not exists... Exiting App")
+            log.logger.info("Trec file does not exists... Exiting App")
             app.kill()
             return
 
         #for TRIAL
         if _config.Trial == 'YES':
-            #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').SetFocus()
             try:
                 app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').Click()
             except(MatchError):
-                print ' Not found Finish Dialog'
+                # print ' Not found Finish Dialog'
                 log.logger.info("Not found Finish Dialog... Exiting App")
                 app.kill()
                 return
-            # except(WindowAmbiguousError):
-            #     print 'Too many Finish Dialog'
-            #     log.logger.info("Too many Finish Dialog... Exiting App")
-            #     return
 
         time.sleep(_config.Dialog_wait_time)
         #end for TRIAL
         child_elements = app[_config.App_Name]
-        #remark
+        #for clicking the share button
         child_elements.ClickInput(coords=(_config.Share_Btn_X, _config.Share_Btn_Y))
         child_elements.TypeKeys("{DOWN}")
         child_elements.TypeKeys("{ENTER}")
@@ -83,27 +80,24 @@ class render_video:
 
         #for TRIAL
         if _config.Trial == 'YES':
+            #for clicking the water mark button
             child_elements.Wait('visible',timeout=20)
             child_elements.ClickInput(coords=(_config.Water_Mark_Btn_X, _config.Water_Mark_Btn_Y))
             time.sleep(_config.Dialog_wait_time)
         #end for TRIAL
         for i in range(_config.Dialogs):
-        #for no_dialogs in _config.Dialogs:
             time.sleep(2)
             child_elements.Wait('visible',timeout=20)
 
             try:
                 app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
             except(MatchError):
-                print ' Not found Dialog to click the first Next. Check if coordinates are mentioned correctly in configuration.xml'
+                # print ' Not found Dialog to click the first Next. Check if coordinates are mentioned correctly in configuration.xml'
                 log.logger.info("Not found Dialog to click the first Next. Check if coordinates are mentioned correctly in configuration.xml. Exiting App")
                 app.kill()
                 return
 
 
-        #app.Window_(best_match='Dialog', top_level_only=True).PrintControlIdentifiers()
-        #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="Untitled Project",class_name="Edit").SetText(time.time())
-        #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="Untitled Project",class_name="Edit").SetText(file)
         stripped_file_name = os.path.splitext(os.path.basename(file))[0]
         dup_dir = Auto.check_duplicate(stripped_file_name,_config.Saved_Path);
         if dup_dir == 1:
@@ -112,21 +106,19 @@ class render_video:
         try:
             app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="Untitled Project",class_name="Edit").SetText(stripped_file_name)
         except(MatchError):
-            print ' Not found Dialog to rename the project'
+            # print ' Not found Dialog to rename the project'
             log.logger.info("Not found Dialog to rename the project... Exiting App")
             app.kill()
             return
-        #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="C:\\Users\\sachinbm\\Documents\\Camtasia Studio",class_name="Edit").SetText("E:\\testcamtasia")
         try:
             app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').Click()
         except(MatchError):
-            print ' Not found Dialog to click Finish'
+            # print ' Not found Dialog to click Finish'
             log.logger.info("Not found Dialog to click Finish... Exiting App")
             app.kill()
             return
 
         time.sleep(renderTime)
-        #child_elements.Wait('visible',timeout=20)
         app.kill_()
         time.sleep(_config.Dialog_wait_time)
         #print("Rendering Succcessful")
