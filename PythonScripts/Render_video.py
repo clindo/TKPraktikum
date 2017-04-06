@@ -1,7 +1,7 @@
 #This file contains render video logic using pywin auto library.
 
 from conf import Config
-from pywinauto.application import Application
+from pywinauto.application import Application ,ProcessNotFoundError
 from pywinauto.findwindows import WindowAmbiguousError, WindowNotFoundError
 from pywinauto.findbestmatch import MatchError
 from logger import log
@@ -43,6 +43,9 @@ class render_video:
             app_dialog = app.top_window_()
             app_dialog.Minimize()
             app_dialog.Restore()
+        except(ProcessNotFoundError):
+            log.logger.info("Not Camtasia process found... Exiting App")
+            return
         except(WindowNotFoundError):
             log.logger.info("Not found Camtasia... Exiting App")
             app.kill()
