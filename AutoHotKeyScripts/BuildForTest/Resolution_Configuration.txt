@@ -1,0 +1,6 @@
+#Display Resolution to be shown in extended displays (width, height)
+1024
+768
+#Slideshow resolution - Provide resolution of Monitor which displays the slideshow(width, height)
+1366
+768

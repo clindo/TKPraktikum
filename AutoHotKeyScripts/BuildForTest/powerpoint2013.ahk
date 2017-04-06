@@ -1,4 +1,9 @@
 #include, Gdip.ahk 
+FileReadLine, __Width, Resolution_Configuration.txt, 2
+FileReadLine, __Height, Resolution_Configuration.txt, 3
+FileReadLine, __SlideWidth, Resolution_Configuration.txt, 5
+FileReadLine, __SlideHeight, Resolution_Configuration.txt, 6
+
 F5:: 
   try{               
     ppt := ComObjActive("PowerPoint.Application")
@@ -42,6 +47,7 @@ v::
 	monitorDisplay(objppt, MonitorCount)
 	return
 
+;Select the slides and calls setDisplay
 monitorDisplay(objppt, MonitorCount){
 	try{
 		CurrentSlideNumber :=% objppt.SlideShowWindow.View.Slide.SlideIndex
@@ -61,7 +67,8 @@ monitorDisplay(objppt, MonitorCount){
 		}
 	}
 }	
-	
+
+;Coordinates for setting the display are returned	
 getCoordinates(MonitorNumber){
 	SysGet, MonitorCount, MonitorCount
 	SysGet, MonitorPrimary, MonitorPrimary
@@ -81,36 +88,24 @@ getCoordinates(MonitorNumber){
 		return Array[4]
 }
 
-
+;Using the coordinates returned from getCoordintes
+;The screenshots are set to the external displays
 setDisplay(MonitorNumber, PreviousSlideNumber){
 global
-	;MsgBox %MonitorNumber%
 	coord := getCoordinates(MonitorNumber)
 	SetEnv file, %A_WorkingDir%\temp\%PreviousSlideNumber%.png
 	if(MonitorNumber = "1"){
 		return
 	}
-	;if(MonitorNumber = "2"){
-		;Gui, %MonitorNumber%:destroy
-		;Gui, %MonitorNumber%:+AlwaysOnTop +LastFound +Owner -Caption
-		;Gui, %MonitorNumber%:Color, Black
-		;Gui, %MonitorNumber%:Add, Picture, w1024 h-1, %file%	
-		;Gui, %MonitorNumber%:Show, x%coord% y0 maximize
-	;}
-	;if(MonitorNumber = "3"){
-		;Gui, %MonitorNumber%:destroy
-		;Gui, %MonitorNumber%:+AlwaysOnTop +LastFound +Owner -Caption
-		;Gui, %MonitorNumber%:Color, Black
-		;Gui, %MonitorNumber%:Add, Picture, w1024 h768, %file%	
-		;Gui, %MonitorNumber%:Show, x%coord% y0 maximize
-	;}
 	Gui, %MonitorNumber%:destroy
 	Gui, %MonitorNumber%:+AlwaysOnTop +LastFound +Owner -Caption
 	Gui, %MonitorNumber%:Color, Black
-	Gui, %MonitorNumber%:Add, Picture, w1024 h768, %file%	
+	Gui, %MonitorNumber%:Add, Picture, w%__Width% h%__Height%, %file%	
 	Gui, %MonitorNumber%:Show, x%coord% y0 maximize
 }
 
+;Uses gdip library to get the screenshots 
+;screen variable is of the format x coordinate| y coordinate| width| height
 Screenshot(outfile)
 {	
 	SysGet, MonitorCount, MonitorCount
@@ -126,8 +121,12 @@ Screenshot(outfile)
 	}
 	SortArray(Array)
 	res := Array[2]
+	FileReadLine, __SlideWidth, Resolution_Configuration.txt, 5
+	FileReadLine, __SlideHeight, Resolution_Configuration.txt, 6
+	slideWidth := __SlideWidth
+	slideHeight := __SlideHeight
     pToken := Gdip_Startup()
-    screen=%res%|0|%A_ScreenWidth%|%A_ScreenHeight%
+    screen=%res%|0|%slideWidth%|%slideHeight%
     pBitmap := Gdip_BitmapFromScreen(screen)
 
     Gdip_SaveBitmapToFile(pBitmap, outfile, 100)
@@ -135,11 +134,13 @@ Screenshot(outfile)
     Gdip_Shutdown(pToken)
 }
 
+;Screenshot is saved into a temp folder with slide number as the names
 saveScreenshot(SlideNumber){
 	file := A_WorkingDir . "\temp\" . SlideNumber . ".png"
 	Screenshot(file)
 }
 
+;Coordinates of the display are sorted using this function 
 SortArray(Array, Order="A") {
     ;Order A: Ascending, D: Descending, R: Reverse
     MaxIndex := ObjMaxIndex(Array)
