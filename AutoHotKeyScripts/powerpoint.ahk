@@ -42,6 +42,7 @@ Left::
 	monitorDisplay(objppt, MonitorCount)
 	return
 
+;Select the slides and calls setDisplay
 monitorDisplay(objppt, MonitorCount){
 	try{
 		CurrentSlideNumber :=% objppt.SlideShowWindow.View.Slide.SlideIndex
@@ -58,7 +59,8 @@ monitorDisplay(objppt, MonitorCount){
 		CurrentSlideNumber--
 	}
 }	
-	
+
+;Coordinates for setting the display are returned
 getCoordinates(MonitorNumber){
 	SysGet, MonitorCount, MonitorCount
 	SysGet, MonitorPrimary, MonitorPrimary
@@ -78,7 +80,8 @@ getCoordinates(MonitorNumber){
 		return Array[3]
 }
 
-
+;Using the coordinates returned from getCoordintes
+;The screenshots are set to the external displays
 setDisplay(MonitorNumber, PreviousSlideNumber){
 global
 	coord := getCoordinates(MonitorNumber)
@@ -104,6 +107,8 @@ global
 	Gui, %MonitorNumber%:Show, x%coord% y0 maximize
 }
 
+;Uses gdip library to get the screenshots 
+;screen variable is of the format x coordinate| y coordinate| width| height
 Screenshot(outfile)
 {
     pToken := Gdip_Startup()
@@ -115,11 +120,13 @@ Screenshot(outfile)
     Gdip_Shutdown(pToken)
 }
 
+;Screenshot is saved into a temp folder with slide number as the names
 saveScreenshot(SlideNumber){
 	file := A_WorkingDir . "\temp\" . SlideNumber . ".png"
 	Screenshot(file)
 }
 
+;Coordinates of the display are sorted using this function 
 SortArray(Array, Order="A") {
     ;Order A: Ascending, D: Descending, R: Reverse
     MaxIndex := ObjMaxIndex(Array)
