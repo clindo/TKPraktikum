@@ -1,6 +1,0 @@
-newsmall1 - Copy (2).trec
-testrec.trec
-testrec - Copy.trec
-newsmall1 - Copy (2) - Copy.trec
-testrec - Copy (2).trec
-newsmall.trec

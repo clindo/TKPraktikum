@@ -67,3 +67,13 @@ class Automate:
         renderTime = sizeBytes * renderingPerMB
         renderTime /= 1000
         return renderTime
+
+    #Check is a duplicate exists and delete the duplicate folder
+    def check_duplicate(self,filename):
+        directories = os.listdir(self.__configuration__.Saved_Path)
+        for dir in directories:
+            if dir == filename:
+                shutil.rmtree(self.__configuration__.Saved_Path+'\\'+filename)
+                return 1
+
+        return 0
