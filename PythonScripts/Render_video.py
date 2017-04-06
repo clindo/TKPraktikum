@@ -1,6 +1,7 @@
 from conf import Config
 from pywinauto.application import Application
 from pywinauto.findwindows import WindowAmbiguousError, WindowNotFoundError
+from pywinauto.findbestmatch import MatchError
 from logger import log
 from helper import Automate
 import time
@@ -56,8 +57,19 @@ class render_video:
         #for TRIAL
         if _config.Trial == 'YES':
             #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').SetFocus()
-            app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').Click()
-            time.sleep(_config.Dialog_wait_time)
+            try:
+                app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').Click()
+            except(MatchError):
+                print ' Not found Finish Dialog'
+                log.logger.info("Not found Finish Dialog... Exiting App")
+                app.kill()
+                return
+            # except(WindowAmbiguousError):
+            #     print 'Too many Finish Dialog'
+            #     log.logger.info("Too many Finish Dialog... Exiting App")
+            #     return
+
+        time.sleep(_config.Dialog_wait_time)
         #end for TRIAL
         child_elements = app[_config.App_Name]
         #remark
@@ -76,15 +88,36 @@ class render_video:
         #for no_dialogs in _config.Dialogs:
             time.sleep(2)
             child_elements.Wait('visible',timeout=20)
-            app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
+
+            try:
+                app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Next').Click()
+            except(MatchError):
+                print ' Not found Dialog to click the first Next. Check if coordinates are mentioned correctly in configuration.xml'
+                log.logger.info("Not found Dialog to click the first Next. Check if coordinates are mentioned correctly in configuration.xml. Exiting App")
+                app.kill()
+                return
+
 
         #app.Window_(best_match='Dialog', top_level_only=True).PrintControlIdentifiers()
         #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="Untitled Project",class_name="Edit").SetText(time.time())
         #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="Untitled Project",class_name="Edit").SetText(file)
         stripped_file_name = os.path.splitext(os.path.basename(file))[0]
-        app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="Untitled Project",class_name="Edit").SetText(stripped_file_name)
+        try:
+            app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="Untitled Project",class_name="Edit").SetText(stripped_file_name)
+        except(MatchError):
+            print ' Not found Dialog to rename the project'
+            log.logger.info("Not found Dialog to rename the project... Exiting App")
+            app.kill()
+            return
         #app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(title="C:\\Users\\sachinbm\\Documents\\Camtasia Studio",class_name="Edit").SetText("E:\\testcamtasia")
-        app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').Click()
+        try:
+            app.Window_(best_match='Dialog', top_level_only=True).ChildWindow(best_match='Finish').Click()
+        except(MatchError):
+            print ' Not found Dialog to click Finish'
+            log.logger.info("Not found Dialog to click Finish... Exiting App")
+            app.kill()
+            return
+
         time.sleep(renderTime)
         #child_elements.Wait('visible',timeout=20)
         app.kill_()
