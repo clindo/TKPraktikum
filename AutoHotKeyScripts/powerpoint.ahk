@@ -1,4 +1,7 @@
 #include, Gdip.ahk 
+FileReadLine, __Width, Resolution_Configuration.txt, 2
+FileReadLine, __Height, Resolution_Configuration.txt, 3
+
 f5:: 
   try{               
     ppt := ComObjActive("PowerPoint.Application")
@@ -7,21 +10,20 @@ f5::
 	FileCreateDir, temp
   }
   catch e {
-	MsgBox % "Please open a ppt to run MultiMonitor" 
+	return 
   }
   SysGet, MonitorCount, MonitorCount
   ppt := objppt.SlideShowSettings
   ppt.Run
 Return
 
-Right::
+Space::
 	try{
 		ppt := ComObjActive("PowerPoint.Application")
 		objppt := ppt.ActivePresentation
 		SlideNum :=% objppt.SlideShowWindow.View.Slide.SlideIndex
 	}
 	catch e {
-		MsgBox % "Error in getting slides. Please run the MultiMonitor application again"
 		ExitApp
 	}
 	saveScreenshot(SlideNum)
@@ -29,14 +31,13 @@ Right::
 	monitorDisplay(objppt, MonitorCount)
 	return
 	
-Left::
+v::
 	try{
 		ppt := ComObjActive("PowerPoint.Application")
 		objppt := ppt.ActivePresentation
 		objppt.SlideShowWindow.View.Previous
 	}
 	catch e {
-		MsgBox % "Error in getting slides. Please run the MultiMonitor application again"
 		ExitApp
 	}
 	monitorDisplay(objppt, MonitorCount)
@@ -86,24 +87,10 @@ setDisplay(MonitorNumber, PreviousSlideNumber){
 global
 	coord := getCoordinates(MonitorNumber)
 	SetEnv file, %A_WorkingDir%\temp\%PreviousSlideNumber%.png
-	;if(MonitorNumber = "1"){
-		;Gui, %MonitorNumber%:destroy
-		;Gui, %MonitorNumber%:+AlwaysOnTop +LastFound +Owner -Caption
-		;Gui, %MonitorNumber%:Color, Black
-		;Gui, %MonitorNumber%:Add, Picture, w1024 h-1, %file%	
-		;Gui, %MonitorNumber%:Show, x%coord% y0 maximize
-	;}
-	;if(MonitorNumber = "2"){
-		;Gui, %MonitorNumber%:destroy
-		;Gui, %MonitorNumber%:+AlwaysOnTop +LastFound +Owner -Caption
-		;Gui, %MonitorNumber%:Color, Black
-		;Gui, %MonitorNumber%:Add, Picture, w1024 h768, %file%	
-		;Gui, %MonitorNumber%:Show, x%coord% y0 maximize
-	;}
 	Gui, %MonitorNumber%:destroy
 	Gui, %MonitorNumber%:+AlwaysOnTop +LastFound +Owner -Caption
 	Gui, %MonitorNumber%:Color, Black
-	Gui, %MonitorNumber%:Add, Picture, w1024 h768, %file%	
+	Gui, %MonitorNumber%:Add, Picture, w%__Width% h%__Height%, %file%	
 	Gui, %MonitorNumber%:Show, x%coord% y0 maximize
 }
 
